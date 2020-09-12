@@ -1,6 +1,7 @@
 @import "~bootstrap/scss/bootstrap";
 
 $maxWidth: 768px;
+
 .app-wrapper {
   font-family: 'Montserrat', sans-serif;
   margin: 0 auto;
@@ -31,6 +32,7 @@ $maxWidth: 768px;
   justify-content: center;
   border-bottom: 1px solid #505050;
   width: 100%;
+  background-color: #fff;
 }
 
 input[type='text'] {
@@ -58,6 +60,8 @@ input[type='text'] {
   flex-direction: column;
   width: 100%;
   justify-content: flex-start;
+  background-color: #fff;
+  border-bottom: 1px solid #505050;
 
   &__total {
     font-weight: 500;
