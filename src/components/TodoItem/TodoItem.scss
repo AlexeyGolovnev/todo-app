@@ -1,0 +1,29 @@
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  margin-bottom: 10px;
+  height: 40px;
+  &__checkbox {
+    margin-right: 10px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+
+  }
+  &__text {
+    margin-right: 10px;
+    font-size: 24px;
+    user-select: none;
+    word-wrap: break-word;
+  }
+  &__dltBtn {
+    width: 30px;
+    height: 30px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+  }
+}
