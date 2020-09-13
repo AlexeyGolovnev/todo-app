@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {Button} from 'react-bootstrap';
 import './App.scss';
 import TodoItem from "./components/TodoItem/TodoItem";
@@ -35,6 +35,7 @@ function App(props) {
     const addTodo = () => {
         props.addTodo(props.text);
         props.clearInputTodoText();
+            todoInputRef.current.focus();
     }
 
     const animatedSetting = useSpring({
@@ -49,12 +50,14 @@ function App(props) {
         }
     });
 
+    const todoInputRef = useRef(null);
     return (
         <animated.div style={animatedSetting} className='app-wrapper'>
             <span className='logo'>TODO APP</span>
             <header className='header'>
                 <div className='input-container'>
                     <input
+                        ref = {todoInputRef}
                         type='text'
                         onChange={(e) => {
                             props.inputTodoText(e.target.value)

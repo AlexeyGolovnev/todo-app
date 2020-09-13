@@ -17,6 +17,9 @@
     font-size: 24px;
     user-select: none;
     word-wrap: break-word;
+    @media screen and (max-width: 425px){
+      font-size: 18px;
+    }
   }
   &__dltBtn {
     width: 30px;

@@ -22,6 +22,8 @@ $maxWidth: 768px;
 .header {
   position: sticky;
   top: 0;
+  z-index: 1000;
+  background-color: #fff;
   max-width: $maxWidth;
   width: 100%;
 }
@@ -37,9 +39,13 @@ $maxWidth: 768px;
 }
 
 input[type='text'] {
+  padding-left: 5px;
   width: 100%;
   margin-right: 10px;
   font-size: 22px;
+  @media screen and (max-width: 425px){
+    font-size: 18px;
+  }
 }
 
 .addBtn {
@@ -52,7 +58,7 @@ input[type='text'] {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 50px 0;
+  padding: 25px 0;
   width: 100%;
 }
 
