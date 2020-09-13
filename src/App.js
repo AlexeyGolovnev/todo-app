@@ -4,9 +4,9 @@ import './App.scss';
 import TodoItem from "./components/TodoItem/TodoItem";
 import {addTodo, clearInputTodoText, inputTodoText} from "./redux/action";
 import {connect} from "react-redux";
+import {useSpring, animated} from 'react-spring'
 
 function App(props) {
-
     let todos = props.todoList.map(todo => {
             if (todo.checked) {
                 return (
@@ -16,7 +16,7 @@ function App(props) {
                         id={todo.id}
                         text={todo.text}
                         checked={todo.checked}
-                        action={props.toggleCheckBox}
+                        todo={todo}
                     />
                 )
             } else {
@@ -26,7 +26,7 @@ function App(props) {
                         id={todo.id}
                         text={todo.text}
                         checked={todo.checked}
-                        action={props.toggleCheckBox}
+                        todo={todo}
                     />
                 )
             }
@@ -36,8 +36,21 @@ function App(props) {
         props.addTodo(props.text);
         props.clearInputTodoText();
     }
+
+    const animatedSetting = useSpring({
+        from: {
+            opacity: 0,
+        },
+        to: {
+            opacity: 1,
+        },
+        config: {
+            duration: 1500
+        }
+    });
+
     return (
-        <div className='app-wrapper'>
+        <animated.div style={animatedSetting} className='app-wrapper'>
             <span className='logo'>TODO APP</span>
             <header className='header'>
                 <div className='input-container'>
@@ -70,7 +83,7 @@ function App(props) {
                 {todos}
             </div>
 
-        </div>
+        </animated.div>
     );
 }
 
