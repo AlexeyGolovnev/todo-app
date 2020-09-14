@@ -2,40 +2,44 @@ import React, {useRef} from 'react';
 import {Button} from 'react-bootstrap';
 import './App.scss';
 import TodoItem from "./components/TodoItem/TodoItem";
-import {addTodo, clearInputTodoText, inputTodoText} from "./redux/action";
-import {connect} from "react-redux";
+import {addTodo, clearInputTodoText, updateTodoText} from "./redux/action";
+import {useDispatch, useSelector} from "react-redux";
 import {useSpring, animated} from 'react-spring'
 
-function App(props) {
-    let todos = props.todoList.map(todo => {
-            if (todo.checked) {
-                return (
-                    <TodoItem
-                        cbChecked={{textDecoration: 'line-through'}}
-                        key={todo.id}
-                        id={todo.id}
-                        text={todo.text}
-                        checked={todo.checked}
-                        todo={todo}
-                    />
-                )
-            } else {
-                return (
-                    <TodoItem
-                        key={todo.id}
-                        id={todo.id}
-                        text={todo.text}
-                        checked={todo.checked}
-                        todo={todo}
-                    />
-                )
-            }
+function App() {
+
+    const dispatch = useDispatch();
+    const inputText = useSelector(state => state.text);
+    const todosList = useSelector(state => state.todosList);
+
+    let todos = todosList.map(todo => {
+        if (todo.isDone) {
+            return (
+                <TodoItem
+                    cbChecked={{textDecoration: 'line-through'}}
+                    key={todo.id}
+                    id={todo.id}
+                    text={todo.text}
+                    isDone={todo.isDone}
+                    todo={todo}
+                />
+            )
+        } else {
+            return (
+                <TodoItem
+                    key={todo.id}
+                    id={todo.id}
+                    text={todo.text}
+                    isDone={todo.isDone}
+                    todo={todo}
+                />
+            )
         }
-    )
-    const addTodo = () => {
-        props.addTodo(props.text);
-        props.clearInputTodoText();
-            todoInputRef.current.focus();
+    })
+    const createTodo = () => {
+        dispatch(addTodo(inputText));
+        dispatch(clearInputTodoText());
+        todoInputRef.current.focus();
     }
 
     const animatedSetting = useSpring({
@@ -51,34 +55,36 @@ function App(props) {
     });
 
     const todoInputRef = useRef(null);
+
     return (
         <animated.div style={animatedSetting} className='app-wrapper'>
             <span className='logo'>TODO APP</span>
             <header className='header'>
                 <div className='input-container'>
                     <input
-                        ref = {todoInputRef}
+                        ref={todoInputRef}
                         type='text'
                         onChange={(e) => {
-                            props.inputTodoText(e.target.value)
+                            dispatch(updateTodoText(e.target.value));
                         }}
-                        value={props.text}
+                        value={inputText}
                         placeholder='Enter Todo'
                     />
                     <Button
                         className='addBtn'
                         variant='success'
                         size="sm"
-                        onClick={addTodo}
+                        onClick={createTodo}
                         title='Add Todo'
                     >
                         +
                     </Button>
                 </div>
                 <div className='todo-info'>
-                    <span className='todo-info__total'>Total: {props.totalTodo}</span>
-                    <span className='todo-info__done'>Done: {props.doneTodo}</span>
-                    <span className='todo-info__left'>Left: {props.leftTodo}</span>
+                    <span className='todo-info__total'>Total: {todosList.length}</span>
+                    <span className='todo-info__done'>Done: {todosList.filter(todo => todo.isDone).length}
+                    </span>
+                    <span className='todo-info__left'>Left: {todosList.filter(todo => !todo.isDone).length}</span>
                 </div>
             </header>
 
@@ -90,22 +96,4 @@ function App(props) {
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        text: state.text,
-        todoList: state.todoList,
-        currentId: state.currentId,
-        totalTodo: state.total,
-        doneTodo: state.done,
-        leftTodo: state.left,
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        inputTodoText: (text) => dispatch(inputTodoText(text)),
-        addTodo: (todo) => dispatch(addTodo(todo)),
-        clearInputTodoText: () => dispatch(clearInputTodoText()),
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

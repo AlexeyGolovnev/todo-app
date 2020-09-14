@@ -1,7 +1,7 @@
-export const inputTodoText = (text) => {
+export const updateTodoText = (text) => {
     return {
-        type: 'INPUT_TODO_TEXT',
-        payload: text,
+        type: 'UPDATE_TODO_TEXT',
+        inputText: text,
     }
 }
 
@@ -16,14 +16,14 @@ export const clearInputTodoText = () => {
 export const toggleCheckBox = (todoId) => {
     return {
         type: 'TOGGLE_CHECKBOX',
-        payload: todoId,
+        todoId: todoId,
     }
 }
 
 export const deleteTodo = (todoId) => {
     return {
         type: 'DELETE_TODO',
-        payload: todoId,
+        todoId: todoId,
     }
 }
 
