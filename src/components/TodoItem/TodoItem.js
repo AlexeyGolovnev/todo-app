@@ -13,7 +13,7 @@ function TodoItem(props) {
     const dispatch = useDispatch();
 
     const [isClickedToDeleteBtn, setIsClickedToDeleteBtn] = useState(false)
-    const [countChkBoxClick, setCountChkBoxClick] = useState(1);
+    const [countChkBoxClick, setCountChkBoxClick] = useState(0);
 
     const animatedSettings = useSpring({
         immediate: ((!isClickedToDeleteBtn && props.isDone) || countChkBoxClick !== 0),
@@ -54,7 +54,11 @@ function TodoItem(props) {
                 checked={props.isDone}
                 onChange={clickToCheckBox}
             />
-            <animated.span className='todo-item__text' style={props.cbChecked}>{props.text} </animated.span>
+            <animated.span
+                className={props.isDone ? 'todo-item__text todo-item__done' : 'todo-item__text'}
+            >
+                {props.text}
+            </animated.span>
             <Button
                 className='todo-item__dltBtn'
                 variant='danger'

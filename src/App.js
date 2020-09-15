@@ -13,28 +13,15 @@ function App() {
     const todosList = useSelector(state => state.todosList);
 
     let todos = todosList.map(todo => {
-        if (todo.isDone) {
-            return (
-                <TodoItem
-                    cbChecked={{textDecoration: 'line-through'}}
-                    key={todo.id}
-                    id={todo.id}
-                    text={todo.text}
-                    isDone={todo.isDone}
-                    todo={todo}
-                />
-            )
-        } else {
-            return (
-                <TodoItem
-                    key={todo.id}
-                    id={todo.id}
-                    text={todo.text}
-                    isDone={todo.isDone}
-                    todo={todo}
-                />
-            )
-        }
+        return (
+            <TodoItem
+                key={todo.id}
+                id={todo.id}
+                text={todo.text}
+                isDone={todo.isDone}
+                todo={todo}
+            />
+        )
     })
     const createTodo = () => {
         dispatch(addTodo(inputText));
