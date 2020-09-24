@@ -26,7 +26,7 @@ export const todoReducer = (state = initialState, action) => {
             if (state.text !== '') {
                 const newTodo = {
                     id: state.lastId,
-                    text: state.text,
+                    todoText: state.text,
                     isDone: false,
                 }
                 return {

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useMemo, useRef} from 'react';
 import {Button} from 'react-bootstrap';
 import './App.scss';
 import TodoItem from "./components/TodoItem/TodoItem";
@@ -12,17 +12,17 @@ function App() {
     const inputText = useSelector(state => state.text);
     const todosList = useSelector(state => state.todosList);
 
-    let todos = todosList.map(todo => {
+    let todos = useMemo(() => todosList.map(todo => {
         return (
             <TodoItem
                 key={todo.id}
                 id={todo.id}
-                text={todo.text}
+                text={todo.todoText}
                 isDone={todo.isDone}
-                todo={todo}
             />
         )
-    })
+    }),[todosList]);
+
     const createTodo = () => {
         dispatch(addTodo(inputText));
         dispatch(clearInputTodoText());
@@ -49,13 +49,14 @@ function App() {
             <header className='header'>
                 <div className='input-container'>
                     <input
+                        className='inputText'
                         ref={todoInputRef}
                         type='text'
                         onChange={(e) => {
                             dispatch(updateTodoText(e.target.value));
                         }}
                         value={inputText}
-                        placeholder='Enter Todo'
+                       placeholder='Enter Todo'
                     />
                     <Button
                         className='addBtn'

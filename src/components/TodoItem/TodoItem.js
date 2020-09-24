@@ -13,11 +13,9 @@ function TodoItem(props) {
     const dispatch = useDispatch();
 
     const [isClickedToDeleteBtn, setIsClickedToDeleteBtn] = useState(false)
-    const [countChkBoxClick, setCountChkBoxClick] = useState(0);
 
     const animatedSettings = useSpring({
-        immediate: ((!isClickedToDeleteBtn && props.isDone) || countChkBoxClick !== 0),
-        reset: true,
+        reset: isClickedToDeleteBtn,
         reverse: isClickedToDeleteBtn,
         from: {
             opacity: 0,
@@ -38,27 +36,24 @@ function TodoItem(props) {
             dispatch(deleteTodo(props.id));
         }, 250);
     }
-    const clickToCheckBox = () => {
-        props.todo.isDone
-            ? setCountChkBoxClick(1)
-            : setCountChkBoxClick(0);
-        dispatch(toggleCheckBox(props.id));
-    }
+
     return (
         <animated.div
             style={animatedSettings}
             className='todo-item'>
-            <input
-                type='checkbox'
-                className='todo-item__checkbox'
-                checked={props.isDone}
-                onChange={clickToCheckBox}
-            />
-            <animated.span
-                className={props.isDone ? 'todo-item__text todo-item__done' : 'todo-item__text'}
-            >
-                {props.text}
-            </animated.span>
+            <div className='todo-item__content'>
+                <input
+                    type='checkbox'
+                    className='todo-item__checkbox'
+                    checked={props.isDone}
+                    onChange={()=>dispatch(toggleCheckBox(props.id))}
+                />
+                <animated.span
+                    className={props.isDone ? 'todo-item__text todo-item__done' : 'todo-item__text'}
+                >
+                    {props.text}
+                </animated.span>
+            </div>
             <Button
                 className='todo-item__dltBtn'
                 variant='danger'
