@@ -1,14 +1,16 @@
 .todo-item {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
-  padding: 5px;
+  padding: 10px;
   margin-bottom: 10px;
   height: 40px;
   width: 100%;
   background-color: #f9f9f9;
   &__content {
     flex: 2 1 90%;
+    display: flex;
+    align-items: center;
   }
   &__checkbox {
     margin-right: 10px;
@@ -21,14 +23,14 @@
     font-size: 24px;
     user-select: none;
     word-wrap: break-word;
-    @media screen and (max-width: 425px){
+    @media screen and (max-width: 425px) {
       font-size: 18px;
     }
   }
   &__dltBtn {
     width: 30px;
     height: 30px;
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     font-size: 24px;

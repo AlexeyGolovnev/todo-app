@@ -1,4 +1,4 @@
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
 
 $maxWidth: 768px;
 
@@ -43,7 +43,7 @@ input[type='text'] {
   width: 100%;
   margin-right: 10px;
   font-size: 22px;
-  @media screen and (max-width: 425px){
+  @media screen and (max-width: 425px) {
     font-size: 18px;
   }
   outline-color: #28a745;
